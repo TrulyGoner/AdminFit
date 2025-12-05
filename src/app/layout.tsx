@@ -1,6 +1,6 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import SidebarNav from "./_components/SidebarNav";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,11 +24,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const navItems = [
-    { label: "Обзор", icon: "/Dashboard.svg", active: true, badge: "LIVE" },
-    { label: "Пользователи", icon: "/user.svg" },
-    { label: "Заказы", icon: "/product.svg" },
-    { label: "Отчёты", icon: "/analytics.svg" },
-    { label: "Настройки", icon: "/settings.svg" },
+    { label: "Обзор", icon: "/Dashboard.svg", href: "/", badge: "LIVE" },
+    { label: "Пользователи", icon: "/user.svg", href: "/users" },
+    { label: "Заказы", icon: "/product.svg", href: "/orders" },
+    { label: "Отчёты", icon: "/analytics.svg", href: "/reports" },
+    { label: "Настройки", icon: "/settings.svg", href: "/settings" },
   ];
 
   return (
@@ -62,38 +62,7 @@ export default function RootLayout({
                 </div>
               </div>
 
-              <nav className="space-y-1 text-sm">
-                {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    className={`flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition ${
-                      item.active
-                        ? "bg-slate-800/60 font-medium text-slate-50 shadow-sm shadow-slate-900/40 ring-1 ring-white/5"
-                        : "text-slate-300 hover:bg-slate-800/40 hover:text-white"
-                    }`}
-                  >
-                    <span
-                      className={`flex h-8 w-8 items-center justify-center rounded-lg border border-white/5 bg-slate-900/70 ${
-                        item.active ? "border-white/10" : ""
-                      }`}
-                    >
-                      <Image
-                        src={item.icon}
-                        alt={item.label}
-                        width={16}
-                        height={16}
-                        className="opacity-85"
-                      />
-                    </span>
-                    <span className="flex-1 truncate">{item.label}</span>
-                    {item.badge ? (
-                      <span className="rounded-full bg-emerald-500/15 px-2 py-0.5 text-[0.65rem] font-semibold text-emerald-300">
-                        {item.badge}
-                      </span>
-                    ) : null}
-                  </button>
-                ))}
-              </nav>
+              <SidebarNav navItems={navItems} />
 
               <div className="mt-auto space-y-3 pt-6">
                 <div className="rounded-2xl border border-purple-500/30 bg-gradient-to-br from-purple-500/15 via-slate-950 to-slate-950 px-3.5 py-3 text-xs text-slate-200 shadow-lg shadow-purple-500/20">
